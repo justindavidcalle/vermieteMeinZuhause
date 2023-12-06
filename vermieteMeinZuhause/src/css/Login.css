@@ -1,0 +1,57 @@
+.login{
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.loginbox{
+    width: 500px;
+    height: 300px;
+    padding: 1rem;
+    background-color: whitesmoke;
+    border: solid rgb(131, 230, 129);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.loginform{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.loginform input{
+    width: 10rem;
+}
+
+#loginbuttoninlogin{
+    margin: 1rem 0 ;
+    margin-bottom: 2rem;
+    height: 2rem;
+    width: 10rem;
+}
+
+.signInSuggestion{
+    margin: 1rem;
+    width:500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid rgb(131, 230, 129);
+    padding: 1rem;
+}
+
+.forgotpasswordbox{
+    margin: 1rem;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid rgb(131, 230, 129);
+    padding: 1rem;
+}
