@@ -43,8 +43,8 @@
     color: #313133;
     background: #4FD1C5;
     background: linear-gradient(90deg, rgb(131, 230, 129) 0%, rgb(79, 209, 107) 100%);
-    border: none;
     border-radius: 1000px;
+    border: none;
     box-shadow: 5px 5px 12px rgba(79, 209, 90, 0.64);
     transition: all 0.3s ease-in-out 0s;
     cursor: pointer;
@@ -83,4 +83,21 @@
 .nav-buttons{
     text-decoration: none;
     color: inherit;
+}
+
+.accountButton{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, rgb(131, 230, 129) 0%, rgb(79, 209, 107) 100%);
+    box-shadow: 5px 5px 12px rgba(79, 209, 90, 0.64);
+    border: none;
+    border-radius: 40%;
+    cursor: pointer;
+}
+
+.accountButton:hover{
+    background: linear-gradient(90deg, rgb(111, 230, 109) 0%, rgb(59, 209, 87) 100%);
 }

@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const cors = require('cors')
+
+app.use(cors())
 
 mongoose.connect('mongodb+srv://justincalle18:05strEEt20@vermietemeinzuhausedb.fctuffp.mongodb.net/vermieteMeinZuhause')
 const db = mongoose.connection
