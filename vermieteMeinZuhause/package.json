@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@demark-pro/react-booking-calendar": "^3.0.5",
     "@fontsource/roboto": "^5.0.8",
+    "@mobiscroll/react": "npm:@mobiscroll/react-trial@^5.28.1",
     "@react-icons/all-files": "^4.1.0",
     "axios": "^1.6.2",
     "react": "^18.2.0",

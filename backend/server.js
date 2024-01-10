@@ -13,7 +13,9 @@ db.once('open', () => console.log('Database connected'))
 app.use(express.json())
 
 const userRouter = require('./router/userRouter')
-app.use('/user',userRouter)
+app.use('/user', userRouter)
+const stripeRouter = require('./router/stripeRouter')
+app.use('/stripe', stripeRouter)
 
 
 app.listen(3000, () => console.log('Server runs on 3000'))
