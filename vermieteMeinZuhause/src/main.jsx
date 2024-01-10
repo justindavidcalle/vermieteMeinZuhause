@@ -7,6 +7,8 @@ import Mieten from './sites/Mieten.jsx'
 import SignIn from './sites/SignIn.jsx'
 import Login from './sites/Login.jsx'
 import About from './sites/About.jsx'
+import ThankYou from './sites/ThankYou.jsx'
+import Sorry from './sites/Sorry.jsx'
 
   const router = createBrowserRouter([
     {
@@ -15,6 +17,8 @@ import About from './sites/About.jsx'
       children: [
         { path: "/rent", element: <Mieten /> },
         { path: "/about", element: <About /> },
+        { path: "/thankyou", element: <ThankYou /> },
+        { path: "/sorry", element: <Sorry /> },
       ],
       errorElement: <Errorpage />,
     },

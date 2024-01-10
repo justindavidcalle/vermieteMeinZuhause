@@ -5,6 +5,23 @@ import { Datepicker, getJson, localeDe, setOptions } from '@mobiscroll/react';
 const ObjectCard = (props) => {
   const addressLines = props.adress ? props.adress.split(',') : [];
 
+const checkout = async () => {
+  await fetch('http://localhost:3000/stripe/checkout', {
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({items: stripeObject})
+  }).then((response) => {
+      return response.json();
+  }).then((response) => {
+      if(response.url) {
+          window.location.assign(response.url); // Forwarding user to Stripe
+      }
+  });
+}
+
+
   const currentDate = new Date(); // Get the current date
   const min = currentDate.toISOString().split('T')[0] + 'T00:00';
   const max = '2024-07-10T00:00';
@@ -15,6 +32,16 @@ const ObjectCard = (props) => {
   ]);
   const [multipleLabels, setMultipleLabels] = useState([]);
   const [multipleInvalid, setMultipleInvalid] = useState([]);
+
+  const price = props.stripeID
+  const quantity = multiple.length
+
+  const stripeObject = [
+    {
+      price: price,
+      quantity: quantity
+    }
+  ]
 
   const onPageLoadingMultiple = (event, inst) => {
     getBookings(event.firstDay, (bookings) => {
@@ -58,7 +85,7 @@ const ObjectCard = (props) => {
         <p>{props.price} CHF pro Nacht</p>
         <div className='Rent-Container'>
           <div className='RentButton-Container'>
-            <button className='RentButton' >Mieten</button>
+            <button className='RentButton' onClick={checkout} >Mieten</button>
           </div>
           <div className='Datepicker-Container'>
           <Datepicker 
