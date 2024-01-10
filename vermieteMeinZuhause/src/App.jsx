@@ -4,11 +4,10 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './sites/Home';
 import Mieten from './sites/Mieten';
 import About from './sites/About';
-
-
+import './app.css'
+import "@fontsource/roboto";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>

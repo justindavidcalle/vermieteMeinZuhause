@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -25,6 +26,16 @@ const SignInBox = () => {
     try {
       const response = await axios.post('http://localhost:3000/user/add', formData);
       console.log('User data sent successfully:', response.data);
+      toast.success('Account erstellt!', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
 
       setFormData({
         username: '',
@@ -33,6 +44,16 @@ const SignInBox = () => {
       });
     } catch (error) {
       console.error('Error sending user data:', error.message);
+      toast.error(error.message, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
   };
 
@@ -59,6 +80,7 @@ const SignInBox = () => {
           </button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };

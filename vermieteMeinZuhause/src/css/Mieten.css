@@ -1,0 +1,11 @@
+.Object-Board{
+    display: flex;
+    background-color: red;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    justify-content: space-around;
+    border-radius: 50px;
+    border-style: solid;
+    border-color: #AAA;
+    border-width: 1.5px;
+}
