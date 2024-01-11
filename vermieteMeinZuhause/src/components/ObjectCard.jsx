@@ -6,12 +6,15 @@ const ObjectCard = (props) => {
   const addressLines = props.adress ? props.adress.split(',') : [];
 
 const checkout = async () => {
-  await fetch('http://localhost:3000/stripe/checkout', {
+  await fetch('http://localhost:3000/jsonstripe/checkout', {
       method: "POST",
       headers: {
           'Content-Type': 'application/json'
       },
-      body: JSON.stringify({items: stripeObject})
+      body: JSON.stringify({
+        items: stripeObject,
+        bookedDates: multiple
+      })
   }).then((response) => {
       return response.json();
   }).then((response) => {

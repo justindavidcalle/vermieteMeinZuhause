@@ -10,12 +10,16 @@ const db = mongoose.connection
 db.on('error', (error) => console.log(error))
 db.once('open', () => console.log('Database connected'))
 
+const stripeRouter = require('./router/stripeRouter')
+app.use('/stripe', stripeRouter)
+
 app.use(express.json())
 
 const userRouter = require('./router/userRouter')
 app.use('/user', userRouter)
-const stripeRouter = require('./router/stripeRouter')
-app.use('/stripe', stripeRouter)
+
+const stripeJSONRouter = require('./router/stripeJSONRouter')
+app.use('/jsonstripe', stripeJSONRouter)
 
 
 app.listen(3000, () => console.log('Server runs on 3000'))
