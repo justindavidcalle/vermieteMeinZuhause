@@ -21,5 +21,8 @@ app.use('/user', userRouter)
 const stripeJSONRouter = require('./router/stripeJSONRouter')
 app.use('/jsonstripe', stripeJSONRouter)
 
+const bookingRouter = require('./router/bookingRouter')
+app.use('/booking', bookingRouter)
+
 
 app.listen(3000, () => console.log('Server runs on 3000'))

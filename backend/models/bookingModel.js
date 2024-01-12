@@ -6,7 +6,7 @@ const bookingModel = new mongoose.Schema({
         required: true
     },
     dates:{
-        type: String,
+        type: [String],
         required: true
     },
     rent: {
@@ -20,4 +20,4 @@ const bookingModel = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('user', bookingModel)
+module.exports = mongoose.model('booking', bookingModel)

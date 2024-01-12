@@ -1,19 +1,59 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/ObjectCard.css';
 import { Datepicker, getJson, localeDe, setOptions } from '@mobiscroll/react';
 
 const ObjectCard = (props) => {
+
+  const [booking, setBooking] = useState([])
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/booking/bookings/${props.shortname}`, {
+     method: "GET",
+      headers: {
+    'Content-Type': 'application/json'
+  }
+})
+  .then((response) => {
+    return response.json();
+  })
+  .then((response) => {
+    if (response) {
+      console.log(bookingToInvalid(response))
+
+      setBooking(response)
+    }
+  })
+  .catch((error) => {
+    console.error('Error fetching bookings:', error);
+  });
+  }, [])
+
   const addressLines = props.adress ? props.adress.split(',') : [];
 
+  function bookingToInvalid(dataArray) {
+    const invalidDates = [];
+
+    dataArray.forEach((booking) => {
+        const dates = booking.dates;
+
+        invalidDates.push(...dates);
+    });
+
+    return invalidDates;
+}
+
 const checkout = async () => {
-  await fetch('http://localhost:3000/jsonstripe/checkout', {
+  if(sessionStorage.getItem('token')){
+    await fetch('http://localhost:3000/jsonstripe/checkout', {
       method: "POST",
       headers: {
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         items: stripeObject,
-        bookedDates: multiple
+        bookingUser: sessionStorage.getItem('token'),
+        bookedDates: multiple,
+        rent: props.shortname
       })
   }).then((response) => {
       return response.json();
@@ -22,6 +62,10 @@ const checkout = async () => {
           window.location.assign(response.url); // Forwarding user to Stripe
       }
   });
+  }else{
+    alert('error')
+  }
+    
 }
 
 
@@ -49,7 +93,7 @@ const checkout = async () => {
   const onPageLoadingMultiple = (event, inst) => {
     getBookings(event.firstDay, (bookings) => {
       setMultipleLabels(bookings.labels);
-      setMultipleInvalid(bookings.invalid);
+      setMultipleInvalid(bookingToInvalid(booking));
     });
   };
 
@@ -96,7 +140,6 @@ const checkout = async () => {
               value={multiple}
               min={min}
               max={max}
-              labels={multipleLabels}
               invalid={multipleInvalid}
               selectMultiple={true}
               onPageLoading={onPageLoadingMultiple}

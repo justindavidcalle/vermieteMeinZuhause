@@ -1,9 +1,17 @@
 const express = require('express');
 const stripe = require('stripe')('sk_test_51OL3rsE0SwKraBCI3qs1FjREnMVo72OXsspbUbbCTFbNpD15sV1Rj7qI67UfTRkAY6HxjMeN45TzzyNSil4I3H3N00zPIiy9Il');
+const Booking = require('../models/bookingModel')
 
 const router = express.Router();
 
 const endpointSecret = "whsec_ce5418a211df5bab436c37905f581621ba734abd660ba290608db74910acfbc8";
+
+function splitDates(dateString) {
+  // Split the string at each comma and trim whitespace
+  const dateArray = dateString.split(',').map(date => date.trim());
+
+  return dateArray;
+}
 
 router.post('/webhook', express.raw({ type: 'application/json' }), async (request, response) => {
   const sig = request.headers['stripe-signature'];
@@ -24,10 +32,24 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (reques
       const checkoutSession = event.data.object;
 
       // Access the metadata
-      const bookedDatesMetadata = checkoutSession.metadata.bookedDates;
-      
+      const bookedDatesMetadata = checkoutSession.metadata.dates;
+
       // Now you can use bookedDatesMetadata in your logic
       console.log('Booked Dates Metadata:', bookedDatesMetadata);
+      console.log('All Metadatas: ', checkoutSession.metadata )
+
+      const booking = new Booking({
+        bookingUser: checkoutSession.metadata.bookingUser,
+        dates: splitDates(bookedDatesMetadata),
+        rent: checkoutSession.metadata.rent
+      })
+
+      try {
+        const newBooking = await booking.save();
+        console.log(newBooking);
+      } catch (error) {
+        console.error('Error saving booking:', error);
+      }
 
       // Call a function to handle the event checkout.session.completed, if needed
       break;
@@ -39,6 +61,5 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (reques
   // Return a 200 response to acknowledge receipt of the event
   response.send();
 });
-
 
 module.exports = router;
