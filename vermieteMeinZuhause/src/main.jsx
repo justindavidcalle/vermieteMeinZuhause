@@ -10,6 +10,9 @@ import About from './sites/About.jsx'
 import ThankYou from './sites/ThankYou.jsx'
 import Sorry from './sites/Sorry.jsx'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -35,5 +38,6 @@ import Sorry from './sites/Sorry.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
+    <ToastContainer />
   </React.StrictMode>,
 )

@@ -80,7 +80,6 @@ const SignInBox = () => {
           </button>
         </div>
       </form>
-      <ToastContainer />
     </div>
   );
 };

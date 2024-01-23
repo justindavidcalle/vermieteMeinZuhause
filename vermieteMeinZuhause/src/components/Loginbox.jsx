@@ -72,7 +72,6 @@ const Loginbox = () => {
             <div>
                 <button id='loginbuttoninlogin' className='loginbutton' type='submit'>Anmelden</button>
             </div>
-            <ToastContainer />
         </form>
 
     </div>

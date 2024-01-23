@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import '../css/ObjectCard.css';
 import { Datepicker, getJson, localeDe, setOptions } from '@mobiscroll/react';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const ObjectCard = (props) => {
 
   const [booking, setBooking] = useState([])
@@ -63,7 +66,16 @@ const checkout = async () => {
       }
   });
   }else{
-    alert('error')
+    toast.error('Sie müssen angemeldet sein!', {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
   }
     
 }
@@ -154,6 +166,7 @@ const checkout = async () => {
         </div>
         </div>
       </div>
+      
     </div>
   );
 };

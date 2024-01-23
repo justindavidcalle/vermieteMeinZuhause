@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ObjectCard from '../components/ObjectCard';
 import '../css/Mieten.css';
 import test from '../assets/test-photo.jpg';
+
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 
 
