@@ -1,9 +1,9 @@
 .Object-Board{
-    display: flex;
-    background-color: red;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #262626;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    justify-content: space-around;
     border-radius: 50px;
     border-style: solid;
     border-color: #AAA;

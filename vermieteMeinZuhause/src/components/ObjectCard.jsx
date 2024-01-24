@@ -46,27 +46,35 @@ const ObjectCard = (props) => {
 }
 
 const checkout = async () => {
-  if(sessionStorage.getItem('token')){
+  if (sessionStorage.getItem('token') && multiple.length > 0){
+    
+
+    const dateObjects = multiple.map(dateString => new Date(dateString));
+    const isoStringDates = dateObjects.map(dateObject => {
+      dateObject.setDate(dateObject.getDate() + 1)
+      return dateObject.toISOString();
+    });
+    
     await fetch('http://localhost:3000/jsonstripe/checkout', {
       method: "POST",
       headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         items: stripeObject,
         bookingUser: sessionStorage.getItem('token'),
-        bookedDates: multiple,
+        bookedDates: isoStringDates,
         rent: props.shortname
       })
-  }).then((response) => {
+    }).then((response) => {
       return response.json();
-  }).then((response) => {
-      if(response.url) {
-          window.location.assign(response.url); // Forwarding user to Stripe
+    }).then((response) => {
+      if (response.url) {
+        window.location.assign(response.url); // Forwarding user to Stripe
       }
-  });
+    });
   }else{
-    toast.error('Sie müssen angemeldet sein!', {
+    toast.error('Sie müssen angemeldet sein und ein Datum wählen!', {
       position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: true,
@@ -85,9 +93,7 @@ const checkout = async () => {
   const min = currentDate.toISOString().split('T')[0] + 'T00:00';
   const max = '2024-07-10T00:00';
   const [multiple, setMultiple] = useState([
-    '2024-01-11T00:00',
-    '2024-01-16T00:00',
-    '2024-01-17T00:00'
+    
   ]);
   const [multipleLabels, setMultipleLabels] = useState([]);
   const [multipleInvalid, setMultipleInvalid] = useState([]);

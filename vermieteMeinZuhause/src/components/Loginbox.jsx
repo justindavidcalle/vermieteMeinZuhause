@@ -5,6 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Loginbox = () => {
 
+    const [username, setUsername] = useState('')
+
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -24,7 +26,7 @@ const Loginbox = () => {
         try{
             
             const response = await axios.post('http://localhost:3000/user/login', formData)
-            console.log('Loged in with:', response.data)
+            setUsername(response.data)
 
             setFormData({
                 username: '',
@@ -32,7 +34,7 @@ const Loginbox = () => {
             })
             
             sessionStorage.setItem('token', response.data)
-            toast.success('Eingeloggt!', {
+            toast.success('Willkommen !', {
                 position: "bottom-right",
                 autoClose: 3000,
                 hideProgressBar: true,
@@ -42,6 +44,9 @@ const Loginbox = () => {
                 progress: undefined,
                 theme: "colored",
                 });
+            
+            window.location.assign('http://localhost:5173/')
+            
         }catch(error){
             console.error('Error sending user data:', error.message)
             toast.error('Nutzername oder Passwort falsch!', {
