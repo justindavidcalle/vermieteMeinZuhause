@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../css/Navbar.css'
 import { Link } from 'react-router-dom'
 import { VscAccount } from "react-icons/vsc";
+import { MdLogout } from "react-icons/md";
 
 const Navbar = () => {
 
@@ -35,7 +36,10 @@ const Navbar = () => {
                   </button>
                 </div>
               ):(
-                <div>
+                <div className='accountButtons'>
+                  <button className='logoutButton'>
+                    <MdLogout style={{fontSize: 24}} />
+                  </button>
                   <button className='accountButton'>
                     <VscAccount style={{fontSize: 24}}/>
                   </button>

@@ -1,11 +1,15 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Loginbox = () => {
 
+    const recaptcha = useRef();
+
     const [username, setUsername] = useState('')
+
 
     const [formData, setFormData] = useState({
         username: '',
@@ -25,28 +29,42 @@ const Loginbox = () => {
 
         try{
             
-            const response = await axios.post('http://localhost:3000/user/login', formData)
-            setUsername(response.data)
+            const captchaValue = recaptcha.current.getValue();
+            if (!captchaValue) {
+                toast.error('Verifiziere mit ReCAPTCHA!', {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+            }else{
+                const response = await axios.post('http://localhost:3000/user/login', formData)
+                setUsername(response.data)
+    
+                setFormData({
+                    username: '',
+                    password:'',
+                })
+                
+                sessionStorage.setItem('token', response.data)
+                toast.success('Willkommen !', {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                
+                window.location.assign('http://localhost:5173/')     
+            }
 
-            setFormData({
-                username: '',
-                password:'',
-            })
-            
-            sessionStorage.setItem('token', response.data)
-            toast.success('Willkommen !', {
-                position: "bottom-right",
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                });
-            
-            window.location.assign('http://localhost:5173/')
-            
         }catch(error){
             console.error('Error sending user data:', error.message)
             toast.error('Nutzername oder Passwort falsch!', {
@@ -74,6 +92,7 @@ const Loginbox = () => {
                 <h2>Password</h2>
                 <input name='password' value={formData.password} type="password" onChange={handleChange} />
             </label>
+            <ReCAPTCHA ref={recaptcha} sitekey="6Lc0lFspAAAAABECnwFz0E8otfm1Jpmbm4nZuD2w"/>
             <div>
                 <button id='loginbuttoninlogin' className='loginbutton' type='submit'>Anmelden</button>
             </div>

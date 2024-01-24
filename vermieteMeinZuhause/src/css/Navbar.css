@@ -101,3 +101,21 @@
 .accountButton:hover{
     background: linear-gradient(90deg, rgb(111, 230, 109) 0%, rgb(59, 209, 87) 100%);
 }
+
+.accountButtons{
+    display: flex;
+}
+
+.logoutButton{
+    height: 50px;
+    width: 50px;
+    margin-right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, rgb(209, 84, 84) 0%, rgb(189, 20, 20) 100%);
+    box-shadow: 5px 5px 12px rgba(209, 125, 79, 0.64);
+    border: none;
+    border-radius: 40%;
+    cursor: pointer;
+}
